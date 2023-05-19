@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 ## パラメータの定義:
 # Define the number of trials and observations
-num_trials = 10000
+num_trials = 100
 num_obs = 1000
 # Define alpha, beta, and sigma
 alpha = 0
@@ -46,13 +46,14 @@ for j in range(num_trials):## 0~99
     # 課題7~9の処理
     # 等差数列を生成 #np.arange(1, 3.01, 0.01)1~3までの0.01刻みのリスト
     # iはbeta hatになりうる数値
-    for i in np.arange(1, 3.01, 0.001):
-        u_tilda = y - (alpha + i * x)
+    for beta_tilda in np.arange(1, 3.01, 0.01):
+    # for beta_tilda in np.arange(1, 3.01, 0.001):
+        u_tilda = y - (alpha + beta_tilda * x)
         pdf = norm.pdf(u_tilda, 0, sigma) # yの確率密度関数を求める。u_iについてpdfを求めれば良い
         log_likelihood = np.sum(np.log(pdf)) # log_likelihoodは確立密度関数の対数の和
         if log_likelihood > max_log_likelihood: #max_log_likelihoodと比較して、それより大きかったら代入する。
             max_log_likelihood = log_likelihood
-            beta_hat = i # log_likelihoodを最大にするベータの値を保存する。
+            beta_hat = beta_tilda # log_likelihoodを最大にするベータの値を保存する。
         # print(max_log_likelihood) # max_log_likelihoodを出力
 
     # Append the beta_hat value
